@@ -269,7 +269,9 @@ ial10@LAPTOP-7DD8I63A MINGW64 ~/basic_git (master)	# 최신 버전(master)으로
 
 ### (1) 원격 저장소 정보 추가 : `git remote add [저장소의 이름][저장소의 URL]`
 
-- local의 Git과 Github 원격(remote) 저장소(repository)를 생성하고 현재 폴더와 연결
+- local의 Git과 Github 원격(remote) 저장소(repository)를 생성하고 현재 폴더와 연결	
+  - local 저장소는 `git init`이 된 상태
+  - 원격 저장소에 새로운 repository가 생성된 상태
 - 저장소의 이름 : `origin`
   - 암묵적으로 첫번째 저장소의 이름은 `origin`
 
@@ -310,7 +312,7 @@ $ git push origin master
 
 ### (2) 순서
 
-###  `add` -> `commit` -> `push`
+###  `add`|`rm` -> `commit` -> `push`
 
 ```shell
 $ git add README.md
@@ -329,5 +331,106 @@ $ git push origin master
 - `git add -u` : `git add` 없어진 파일이나 이름이 바뀐 파일을 인식하지 못하기 때문에, 수정(update)된 파일들을 추가하고 싶을 경우 사용한다.
 - `git add .` : 현재 폴더 내부의 모든 변화를 state에 추가한다.
 
+### (5) 파일 삭제 : `git rm `
 
+- Local(Git)과 원격저장소(Github) 에서 파일 삭제
+
+```shell
+$ git rm [파일명]
+```
+
+
+
+- 원격저장소(Github)에서만 파일 삭제(Local(Git)에서는 파일 삭제하지 않음)
+
+```shell
+$ git rm --cached [파일명]
+```
+
+
+
+---
+
+
+
+# 원격관리 : 원격 저장소(Github) -> Local(Git)
+
+### (1)  원격저장소에서 `처음`으로 프로젝트 복제할 때 : `git clone [원격 저장소의 주소]`
+
+```shell
+$ git clone https://github.com/Ryu-dot-line/TIL.git
+
+# 완료 메시지
+Cloning into 'TIL'...
+remote: Enumerating objects: 30, done.
+remote: Counting objects: 100% (30/30), done.
+remote: Compressing objects: 100% (24/24), done.
+remote: Total 30 (delta 11), reused 23 (delta 4), pack-reused 0
+Unpacking objects: 100% (30/30), 10.62 KiB | 159.00 KiB/s, done.
+```
+
+- clone 받은 repository에서는 remote를 설정하지 않아도 원격저장소가 연결된다.
+
+### (2) 원격저장소에서 프로젝트 상의 변경사항 내려 받을  때 : `git pull [저장소명] [브랜치명]`
+
+```shell
+$ git pull origin master
+
+# 완료 메시지
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (1/1), done.
+remote: Total 3 (delta 1), reused 3 (delta 1), pack-reused 0
+Unpacking objects: 100% (3/3), 247 bytes | 35.00 KiB/s, done.
+From https://github.com/Ryu-dot-line/TIL
+ * branch            master     -> FETCH_HEAD
+   d3ea488..d6c89f4  master     -> origin/master
+Updating d3ea488..d6c89f4
+Fast-forward
+ django.md | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 django.md
+```
+
+
+
+---
+
+
+
+# 파일 변경 사항 확인
+
+### (1) 파일 변경 사항 확인 : `git diff [파일명]`
+
+```shell
+$ git diff READM.md
+
+# 변경 사항 있을 경우 출력됨
+diff --git a/README.md b/README.md
+index c06601f..3452f05 100644
+--- a/README.md
++++ b/README.md
+@@ -1,5 +1,5 @@
+ # 백일장
+-다음 제시어로 n행시를 완성하세요.
++다음 제시어로 n행시를 완성하세요~!
+
+ ## 제시어
+ - 사: 사차산업은
+```
+
+
+
+---
+
+
+
+# 기타 
+
+### (1) VS Code Open
+
+```shell
+$ code .   # 현재 폴더의 파일 VS Code에서 열기
+$ code ..  # 상위 폴더의 파일 VS Code에서 열기
+```
 
